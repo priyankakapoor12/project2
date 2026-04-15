@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/priyankakapoor12/project2.git'
+            }
+        }
+
+        stage('Deploy to Apache') {
+            steps {
+                sh '''
+                echo "Deploying application..."
+
+                # Remove old files
+                sudo rm -rf /var/www/html/*
+
+                # Copy new files from Jenkins workspace
+                sudo cp -r * /var/www/html/
+
+                # Restart Apache
+                sudo systemctl restart apache2
+
+                echo "Deployment completed"
+                '''
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo 'Deployment Successful ✅'
+        }
+        failure {
+            echo 'Deployment Failed ❌'
+        }
+    }
+}
