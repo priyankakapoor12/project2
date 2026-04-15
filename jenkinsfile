@@ -9,18 +9,13 @@ pipeline {
             }
         }
 
-        stage('Deploy to Apache') {
+        stage('Deploy') {
             steps {
                 sh '''
-                echo "Deploying application..."
+                echo "Deploying HTML page..."
 
-                # Remove old files
-                sudo rm -rf /var/www/html/*
-
-                # Copy new files from Jenkins workspace
                 sudo cp -r * /var/www/html/
 
-                # Restart Nginx
                 sudo systemctl restart nginx
 
                 echo "Deployment completed"
@@ -32,10 +27,10 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment Successful ✅'
+            echo 'HTML Deployment Successful ✅'
         }
         failure {
-            echo 'Deployment Failed ❌'
+            echo 'HTML Deployment Failed ❌'
         }
     }
 }
