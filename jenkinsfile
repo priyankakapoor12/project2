@@ -20,8 +20,8 @@ pipeline {
                 # Copy new files from Jenkins workspace
                 sudo cp -r * /var/www/html/
 
-                # Restart Apache
-                sudo systemctl restart apache2
+                # Restart Nginx
+                sudo systemctl restart nginx
 
                 echo "Deployment completed"
                 '''
