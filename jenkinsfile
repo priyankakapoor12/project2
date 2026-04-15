@@ -12,11 +12,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                echo "Deploying HTML page..."
+                echo "Deploying application..."
 
-                sudo cp -r * /var/www/html/
-
-                sudo systemctl restart nginx
+             
+                cp -r * /var/www/html/
 
                 echo "Deployment completed"
                 '''
@@ -27,10 +26,10 @@ pipeline {
 
     post {
         success {
-            echo 'HTML Deployment Successful ✅'
+            echo 'Deployment Successful ✅'
         }
         failure {
-            echo 'HTML Deployment Failed ❌'
+            echo 'Deployment Failed ❌'
         }
     }
 }
